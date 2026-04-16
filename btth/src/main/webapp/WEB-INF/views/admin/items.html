@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('Admin - Danh sách thiết bị / phòng Lab')"></head>
+<body>
+<nav th:replace="fragments/layout :: navbar"></nav>
+
+<div class="container">
+    <h1 class="mb-4">Admin - Danh sách thiết bị / phòng Lab</h1>
+
+    <table class="table table-bordered table-striped align-middle">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Loại</th>
+            <th>Số lượng còn lại</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.id}">1</td>
+            <td th:text="${item.name}">Tên</td>
+            <td th:text="${item.type == T(org.example.btth.model.Item.Type).LAB ? 'Phòng Lab' : 'Thiết bị'}">Loại</td>
+            <td th:text="${item.stock}">0</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:replace="fragments/layout :: footer"></footer>
+</body>
+</html>
+

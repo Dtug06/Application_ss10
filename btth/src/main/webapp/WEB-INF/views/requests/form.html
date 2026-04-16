@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('Đăng ký mượn thiết bị / phòng Lab')"></head>
+<body>
+<nav th:replace="fragments/layout :: navbar"></nav>
+
+<div class="container">
+    <h1 class="mb-4">Đăng ký mượn</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${item.name}">Tên thiết bị</h5>
+            <p class="card-text">
+                Loại:
+                <span class="badge bg-primary"
+                      th:text="${item.type == T(org.example.btth.model.Item.Type).LAB ? 'Phòng Lab' : 'Thiết bị'}">
+                    Loại
+                </span>
+            </p>
+            <p class="card-text">
+                Số lượng còn lại: <strong th:text="${item.stock}">0</strong>
+            </p>
+        </div>
+    </div>
+
+    <form th:action="@{|/items/${item.id}/request|}"
+          th:object="${borrowForm}"
+          method="post"
+          class="row g-3">
+
+        <div class="col-md-6">
+            <label class="form-label">Họ và tên sinh viên</label>
+            <input type="text" th:field="*{studentName}" class="form-control"
+                   placeholder="Ví dụ: Nguyễn Văn A">
+            <div class="text-danger mt-1" th:if="${#fields.hasErrors('studentName')}"
+                 th:errors="*{studentName}"></div>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Mã sinh viên</label>
+            <input type="text" th:field="*{studentCode}" class="form-control"
+                   placeholder="Ví dụ: SE1234">
+            <div class="text-danger mt-1" th:if="${#fields.hasErrors('studentCode')}"
+                 th:errors="*{studentCode}"></div>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Email liên hệ</label>
+            <input type="email" th:field="*{email}" class="form-control"
+                   placeholder="Ví dụ: sinhvien@fpt.edu.vn">
+            <div class="text-danger mt-1" th:if="${#fields.hasErrors('email')}"
+                 th:errors="*{email}"></div>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Số lượng muốn mượn</label>
+            <input type="number" th:field="*{quantity}" class="form-control"
+                   min="1">
+            <div class="form-text" th:if="${item.type == T(org.example.btth.model.Item.Type).LAB}">
+                Đối với phòng Lab, số lượng mặc định là 1.
+            </div>
+            <div class="text-danger mt-1" th:if="${#fields.hasErrors('quantity')}"
+                 th:errors="*{quantity}"></div>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Ngày dự kiến nhận / sử dụng</label>
+            <input type="date" th:field="*{startDate}" class="form-control">
+            <div class="text-danger mt-1" th:if="${#fields.hasErrors('startDate')}"
+                 th:errors="*{startDate}"></div>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Ngày dự kiến trả</label>
+            <input type="date" th:field="*{endDate}" class="form-control">
+            <div class="text-danger mt-1" th:if="${#fields.hasErrors('endDate')}"
+                 th:errors="*{endDate}"></div>
+        </div>
+
+        <div class="col-12">
+            <label class="form-label">Lý do mượn</label>
+            <textarea th:field="*{reason}" class="form-control" rows="3"
+                      placeholder="Ví dụ: Mượn để làm bài tập lớn, demo đồ án,..."></textarea>
+            <div class="text-danger mt-1" th:if="${#fields.hasErrors('reason')}"
+                 th:errors="*{reason}"></div>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Gửi yêu cầu</button>
+            <a th:href="@{/items}" class="btn btn-secondary ms-2">Quay lại danh sách</a>
+        </div>
+    </form>
+</div>
+
+<footer th:replace="fragments/layout :: footer"></footer>
+</body>
+</html>
+

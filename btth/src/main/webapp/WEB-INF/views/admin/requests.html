@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('Admin - Danh sách yêu cầu mượn')"></head>
+<body>
+<nav th:replace="fragments/layout :: navbar"></nav>
+
+<div class="container">
+    <h1 class="mb-4">Admin - Danh sách yêu cầu mượn</h1>
+
+    <div class="alert alert-info" th:if="${#lists.isEmpty(requests)}">
+        Chưa có yêu cầu mượn nào.
+    </div>
+
+    <table class="table table-bordered table-striped align-middle" th:if="${!#lists.isEmpty(requests)}">
+        <thead>
+        <tr>
+            <th>Tên thiết bị / phòng</th>
+            <th>Họ tên SV</th>
+            <th>Mã SV</th>
+            <th>Email</th>
+            <th>Số lượng</th>
+            <th>Từ ngày</th>
+            <th>Đến ngày</th>
+            <th>Lý do</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="r : ${requests}">
+            <td th:text="${r.itemName}">Thiết bị</td>
+            <td th:text="${r.studentName}">Tên</td>
+            <td th:text="${r.studentCode}">Mã</td>
+            <td th:text="${r.email}">Email</td>
+            <td th:text="${r.quantity}">1</td>
+            <td th:text="${r.startDate}">2024-01-01</td>
+            <td th:text="${r.endDate}">2024-01-02</td>
+            <td th:text="${r.reason}">Lý do</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:replace="fragments/layout :: footer"></footer>
+</body>
+</html>
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('Danh mục thiết bị / phòng Lab')"></head>
+<body>
+<nav th:replace="fragments/layout :: navbar"></nav>
+
+<div class="container">
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+
+    <h1 class="mb-4">Danh mục thiết bị / phòng Lab</h1>
+
+    <div class="row" th:if="${#lists.isEmpty(items)}">
+        <div class="col-12">
+            <div class="alert alert-info">Hiện chưa có thiết bị/phòng Lab nào.</div>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4" th:if="${!#lists.isEmpty(items)}">
+        <div class="col" th:each="item : ${items}">
+            <div class="card h-100 shadow-sm">
+                <img th:src="${item.imageUrl}" class="card-img-top" alt="Ảnh thiết bị">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title" th:text="${item.name}">Tên thiết bị</h5>
+                    <p class="card-text">
+                        <span class="badge bg-primary me-1"
+                              th:text="${item.type == T(org.example.btth.model.Item.Type).LAB ? 'Phòng Lab' : 'Thiết bị'}">
+                            Loại
+                        </span>
+                    </p>
+                    <p class="card-text">
+                        Số lượng còn lại:
+                        <strong th:text="${item.stock}">0</strong>
+                    </p>
+                    <div class="mt-auto">
+                        <a th:href="@{|/items/${item.id}/request|}" class="btn btn-success w-100">
+                            Đăng ký mượn / sử dụng
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="fragments/layout :: footer"></footer>
+</body>
+</html>
+

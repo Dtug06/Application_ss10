@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.13.2'
+}
+
+sourceCompatibility = '21'
+targetCompatibility = '21'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+
+    //1.Spring MVC
+    // Source: https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+    implementation("org.springframework:spring-webmvc:7.0.6")
+
+    //2.Thymeleaf
+    // Source:https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf-spring6
+    implementation("org.thymeleaf:thymeleaf-spring6:3.1.3.RELEASE")
+
+    //3. Hibernate Validator (JSR-380 implementation)
+    implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
+
+    // EL implementation required by Hibernate Validator
+    implementation("org.glassfish:jakarta.el:4.0.2")
+
+    compileOnly('jakarta.servlet:jakarta.servlet-api:6.1.0')
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}
