@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thêm công việc</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Thêm công việc mới</h2>
+    <form th:action="@{/tasks/add}" th:object="${task}" method="post">
+
+        <div class="form-group">
+            <label for="id">Mã công việc</label>
+            <input type="text" class="form-control" id="id" th:field="*{id}" placeholder="Nhập mã">
+        </div>
+
+        <div class="form-group">
+            <label for="title">Tên công việc</label>
+            <input type="text" class="form-control" id="title" th:field="*{title}" placeholder="Nhập tên công việc">
+        </div>
+
+        <div class="form-group">
+            <label for="deadline">Ngày hết hạn</label>
+            <input type="date" class="form-control" id="deadline" th:field="*{deadline}">
+        </div>
+
+        <div class="form-group">
+            <label for="priority">Độ ưu tiên</label>
+            <select class="form-control" id="priority" th:field="*{priority}">
+                <option th:value="LOW">Thấp</option>
+                <option th:value="MEDIUM">Trung bình</option>
+                <option th:value="HIGH">Cao</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Lưu</button>
+    </form>
+</div>
+</body>
+</html>

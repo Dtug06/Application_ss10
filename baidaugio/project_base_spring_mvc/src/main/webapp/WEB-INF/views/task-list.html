@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách công việc</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Danh sách công việc</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Mã</th>
+            <th>Tên công việc</th>
+            <th>Ngày hết hạn</th>
+            <th>Độ ưu tiên</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task : ${tasks}">
+            <td th:text="${task.id}"></td>
+            <td th:text="${task.title}"></td>
+            <td th:text="${task.deadline}"></td>
+            <td th:text="${task.priority}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
